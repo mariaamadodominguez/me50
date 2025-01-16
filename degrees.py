@@ -91,6 +91,10 @@ def shortest_path(source, target):
 
     If no possible path, returns None.
     """
+    # If source and target are the same, returns an empty list 
+    if source == target:
+        return []
+
     # Keep track of number of states explored
     num_explored = 0
 
@@ -158,9 +162,8 @@ def shortest_path(source, target):
         print(
             f"-----------------{num_explored}: {explored}---")
     # 
-    #return None
-    return 
-
+    return None
+    
 def person_id_for_name(name):
     """
     Returns the IMDB id for a person's name,
