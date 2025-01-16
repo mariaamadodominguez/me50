@@ -152,14 +152,14 @@ def shortest_path(source, target):
                         node = node.parent
                     path.reverse()
                     print(
-                    f"path {path}")
+                        f"path {path}")
                     return path            
                 
         print(
             f"-----------------{num_explored}: {explored}---")
     # 
     #return None
-    return []
+    return 
 
 def person_id_for_name(name):
     """
