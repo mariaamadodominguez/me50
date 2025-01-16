@@ -146,13 +146,17 @@ def shortest_path(source, target):
                     node = child
                     while node.parent is not None:
                         # print(f"[action {node.action} parent.state {node.parent.state}, state {node.state}]")    
-                        path.append([node.action, node.state])
+                        #path.append([node.action, node.state])
+                        path.append((node.action, node.state))
+                        
                         node = node.parent
                     path.reverse()
+                    print(
+                    f"path {path}")
                     return path            
                 
-            print(
-                f"-----------------{num_explored}: {explored}---")
+        print(
+            f"-----------------{num_explored}: {explored}---")
     # 
     return None
 
