@@ -158,8 +158,8 @@ def shortest_path(source, target):
         print(
             f"-----------------{num_explored}: {explored}---")
     # 
-    return None
-
+    #return None
+    return []
 
 def person_id_for_name(name):
     """
