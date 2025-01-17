@@ -103,8 +103,8 @@ def shortest_path(source, target):
     goal = Node(state=target, parent=None, action=None)    
     frontier = QueueFrontier()    
     
-    print(
-        f"***start:{start.state}[{people[start.state]["name"]}] and goal:{goal.state}[{people[goal.state]["name"]}]***")    
+    # print(
+    #    f"***start:{start.state}[{people[start.state]["name"]}] and goal:{goal.state}[{people[goal.state]["name"]}]***")    
     
     frontier.add(start)
 
@@ -128,8 +128,8 @@ def shortest_path(source, target):
             
         # Add neighbors to frontier
         node_name = people[node.state]["name"]  
-        print(
-            f"people starring with {node_name} in movies {people[node.state]["movies"]} ")              
+        # print(
+        #    f"people starring with {node_name} in movies {people[node.state]["movies"]} ")              
             
         for movie, person in neighbors_for_person(node.state):
                 
@@ -141,8 +141,8 @@ def shortest_path(source, target):
             if not frontier.contains_state(person) and person not in explored:
                 child = Node(state=person, parent=node, action=movie)                    
                 frontier.add(child)
-                print(
-                    f"### Frontier add {movies[child.action]["title"]} - {people[child.state]["name"]}")
+                # print(
+                #    f"### {movies[child.action]["title"]} - {people[child.state]["name"]}")
 
                 if child.state == goal.state:
                     # If node is the goal, then we have a solution
@@ -150,20 +150,19 @@ def shortest_path(source, target):
                     node = child
                     while node.parent is not None:
                         # print(f"[action {node.action} parent.state {node.parent.state}, state {node.state}]")    
-                        #path.append([node.action, node.state])
+                        # path.append([node.action, node.state])
                         path.append((node.action, node.state))
                         
                         node = node.parent
                     path.reverse()
-                    print(
-                        f"path {path}")
+                    # print(f"path {path}")
                     return path            
                 
-        print(
-            f"-----------------{num_explored}: {explored}---")
+        # print(f"-----------------{num_explored}: {explored}---")
     # 
     return None
-    
+
+
 def person_id_for_name(name):
     """
     Returns the IMDB id for a person's name,
