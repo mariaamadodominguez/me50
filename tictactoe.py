@@ -163,26 +163,66 @@ def minimax(board):
     If the board is a terminal board, the minimax function should return None.
 
     """
-    if terminal(board) == True:
-        return None
-
+ 
     cur_player = player(board)
     if cur_player == X:
-        moves = []
-        for a in actions(board):
-            move = min_value(result(board, a))
-            moves.append([move, a])
-        optimal = sorted(moves, key=lambda x: x[0], reverse=True)[0][1]
+        # moves = []
+        # for a in actions(board):
+        #    move = min_value(result(board, a))
+        #    moves.append([move, a])
+        # optimal = sorted(moves, key=lambda x: x[0], reverse=True)[0][1]
+        value, move = ab_max_value(board, float('-inf'), float('inf'))
+        return move
         
     elif cur_player == O:
-        moves = []
-        for a in actions(board):
-            move = max_value(result(board, a))
-            moves.append([move, a])       
-        optimal = sorted(moves, key=lambda x: x[0])[0][1]
+        # moves = []
+        # for a in actions(board):
+        #    move = max_value(result(board, a))
+        #    moves.append([move, a])       
+        # optimal = sorted(moves, key=lambda x: x[0])[0][1]
+        value, move = ab_min_value(board, float('-inf'), float('inf'))    
+        return move
     # print(
     #    f"###minimax player {cur_player} moves {moves} optimal {optimal}")
-    return optimal
+    # return optimal
+
+
+def ab_max_value(board, alpha, beta):
+    if terminal(board) == True:
+        return utility(board), None
+    best_move = tuple()
+    v = -math.inf
+    for a in actions(board):            
+        move, action = ab_min_value(result(board, a), alpha, beta)
+        if move > v:
+            v = move
+            best_move = a
+
+        alpha = max(alpha, v)
+        if beta <= alpha:
+            break
+    print(
+        f"###max_value {v} ")
+    return v, best_move
+
+
+def ab_min_value(board, alpha, beta):
+    if terminal(board) == True:
+        return utility(board), None
+    best_move = tuple()
+    v = math.inf
+    for a in actions(board):            
+        move, action = ab_max_value(result(board, a), alpha, beta)
+        if move < v:
+            v = move
+            best_move = a
+
+        beta = min(beta, v)
+        if beta <= alpha:
+            break
+    print(
+        f"###min_value {v} ")
+    return v, best_move        
 
 
 def max_value(board):
