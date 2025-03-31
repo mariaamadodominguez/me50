@@ -88,8 +88,8 @@ knowledge3 = And(
     Not(And(BKnight, BKnave)),
     Not(And(CKnight, CKnave)),
     # (2) information about what the characters actually said.
-    Implication(AKnight, And(Or(AKnight, AKnave))),
-    Implication(AKnave, Not(And(Or(AKnight, AKnave)))),
+    # Implication(AKnight, And(Or(AKnight, AKnave))),
+    # Implication(AKnave, Not(And(Or(AKnight, AKnave)))),
     Implication(BKnight, Implication(AKnight, And(AKnave))),
     Implication(BKnight, Implication(AKnave, Not(And(AKnave)))),
     Implication(BKnave, Implication(AKnight, Not(And(AKnave)))),
