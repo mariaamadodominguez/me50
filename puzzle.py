@@ -12,16 +12,16 @@ CKnave = Symbol("C is a Knave")
 # Puzzle 0
 # A says "I am both a knight and a knave."
 
-# (2) information about what the characters actually said.
-# ASays = And(AKnight, AKnave)
-
 knowledge0 = And(
     # (1) information about the structure of the problem itself
     Or(AKnight, AKnave),
     Or(BKnight, BKnave),
+    Or(CKnight, CKnave),
     Not(And(AKnight, AKnave)),
     Not(And(BKnight, BKnave)),
-    # (2) information about what the characters actually said.    
+    Not(And(CKnight, CKnave)),
+    # (2) information about what the characters actually said. 
+    # A says "I am both a knight and a knave."
     Implication(AKnight, And(AKnight, AKnave)),
     Implication(AKnave, Not(And(AKnight, AKnave)))    
 )
@@ -32,16 +32,16 @@ knowledge0 = And(
 # A says "We are both knaves."
 # B says nothing.
 
-# (2) information about what the characters actually said.
-# ASays = And(AKnave, BKnave)
-
 knowledge1 = And(
     # (1) information about the structure of the problem itself
     Or(AKnight, AKnave),
     Or(BKnight, BKnave),
+    Or(CKnight, CKnave),
     Not(And(AKnight, AKnave)),
     Not(And(BKnight, BKnave)),
+    Not(And(CKnight, CKnave)),
     # (2) information about what the characters actually said.
+    # A says "We are both knaves."
     Implication(AKnight, And(AKnave, BKnave)),
     Implication(AKnave, Not(And(AKnave, BKnave)))
 )
@@ -52,19 +52,20 @@ knowledge1 = And(
 # A says "We are the same kind."
 # B says "We are of different kinds."
 
-# (2) information about what the characters actually said.
-# ASays = Or(And(AKnight, BKnight), And(AKnave, BKnave))
-# BSays = Or(And(AKnight, BKnave), And(AKnave, BKnight))    
-
 knowledge2 = And(
     # (1) information about the structure of the problem itself
     Or(AKnight, AKnave),
     Or(BKnight, BKnave),
+    Or(CKnight, CKnave),
     Not(And(AKnight, AKnave)),
     Not(And(BKnight, BKnave)),
+    Not(And(CKnight, CKnave)),
     # (2) information about what the characters actually said.
+    # A says "We are the same kind."
     Implication(AKnight, Or(And(AKnight, BKnight), And(AKnave, BKnave))),
     Implication(AKnave, Not(Or(And(AKnight, BKnight), And(AKnave, BKnave)))),
+    
+    # B says "We are of different kinds."
     Implication(BKnight, Or(And(AKnight, BKnave), And(AKnave, BKnight))),
     Implication(BKnave, Not(Or(And(AKnight, BKnave), And(AKnave, BKnight)))))    
 
@@ -74,11 +75,6 @@ knowledge2 = And(
 # B says "C is a knave."
 # C says "A is a knight."
 
-# (2) information about what the characters actually said.
-# ASays = And(Or(AKnight, AKnave))
-# BSaysA = And(AKnave)
-# BSaysC = And(CKnave)
-# CSays = And(AKnight)
 knowledge3 = And(
     # (1) information about the structure of the problem itself
     Or(AKnight, AKnave),
@@ -87,17 +83,23 @@ knowledge3 = And(
     Not(And(AKnight, AKnave)),
     Not(And(BKnight, BKnave)),
     Not(And(CKnight, CKnave)),
-    # (2) information about what the characters actually said.
-    # Implication(AKnight, And(Or(AKnight, AKnave))),
-    # Implication(AKnave, Not(And(Or(AKnight, AKnave)))),
-    Implication(BKnight, Implication(AKnight, And(AKnave))),
-    Implication(BKnight, Implication(AKnave, Not(And(AKnave)))),
-    Implication(BKnave, Implication(AKnight, Not(And(AKnave)))),
-    Implication(BKnave, Implication(AKnave, And(AKnave))),
-    Implication(BKnight, And(CKnave)),
-    Implication(BKnave, Not(And(CKnave))),
-    Implication(CKnight, And(AKnight)),
-    Implication(CKnave, Not(And(AKnight))))
+    # (2) information about what the characters actually said.    
+    # ASays = And(Or(AKnight, AKnave))
+    Implication(AKnight, Or(AKnight, AKnave)),        
+    Implication(AKnave, Not(Or(AKnight, AKnave))),    
+    
+    # B says "A said 'I am a knave'."
+    Or(Implication(BKnight, Or(Implication(AKnight, AKnave), Implication(AKnight, Not(AKnave)))),
+       Implication(BKnave, Not(Or(Implication(AKnight, AKnave), Implication(AKnight, Not(AKnave)))))
+       ),    
+
+    # B says "C is a knave."    
+    Implication(BKnight, CKnave),
+    Implication(BKnave, Not(CKnave)),
+    
+    # C says "A is a knight."
+    Implication(CKnight, AKnight),
+    Implication(CKnave, Not(AKnight)))
  
 
 def main():
