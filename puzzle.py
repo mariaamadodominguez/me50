@@ -84,13 +84,13 @@ knowledge3 = And(
     Not(And(BKnight, BKnave)),
     Not(And(CKnight, CKnave)),
     # (2) information about what the characters actually said.    
-    # ASays = And(Or(AKnight, AKnave))
+    # A says either "I am a knight." or "I am a knave.", but you don't know which.
     Implication(AKnight, Or(AKnight, AKnave)),        
     Implication(AKnave, Not(Or(AKnight, AKnave))),    
     
     # B says "A said 'I am a knave'."
-    Or(Implication(BKnight, Or(Implication(AKnight, AKnave), Implication(AKnight, Not(AKnave)))),
-       Implication(BKnave, Not(Or(Implication(AKnight, AKnave), Implication(AKnight, Not(AKnave)))))
+    Or(Implication(BKnight, Or(Implication(AKnight, AKnave), Implication(AKnave, Not(AKnave)))),
+       Implication(BKnave, Not(Or(Implication(AKnight, AKnave), Implication(AKnave, Not(AKnave)))))
        ),    
 
     # B says "C is a knave."    
