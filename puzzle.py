@@ -46,8 +46,6 @@ knowledge1 = And(
     Implication(AKnave, Not(And(AKnave, BKnave)))
 )
 
-# print(f"    {knowledge1}")
-
 # Puzzle 2
 # A says "We are the same kind."
 # B says "We are of different kinds."
